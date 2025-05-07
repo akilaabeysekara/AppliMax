@@ -1,35 +1,51 @@
 package com.applimax.project.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
+import java.util.Objects;
 
-public class LoginPageController implements Initializable {
+public class LoginPageController {
 
     @FXML
     private AnchorPane ancMainContainer;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        navigateTo("view/LoginLayout.fxml");
+    @FXML
+    private Label lblSup1;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    void forgotPasswordOnAction(MouseEvent event) {
+
     }
 
-    public void navigateTo(String path) {
-        try {
+    public void onLogin(ActionEvent actionEvent) throws IOException {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (username.equals("admin") && password.equals("admin")) {
+            new Alert(Alert.AlertType.INFORMATION, "Login Successful!", ButtonType.OK).show();
             ancMainContainer.getChildren().clear();
-            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/" + path));
+            AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Dashboard.fxml")));
             anchorPane.prefWidthProperty().bind(ancMainContainer.widthProperty());
             anchorPane.prefHeightProperty().bind(ancMainContainer.heightProperty());
             ancMainContainer.getChildren().add(anchorPane);
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
-            e.printStackTrace();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid credentials!", ButtonType.OK).show();
         }
     }
+
 }

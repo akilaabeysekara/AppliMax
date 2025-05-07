@@ -41,6 +41,6 @@ public class RegisterLayoutController implements Initializable {
     }
 
     public void clickBack(MouseEvent mouseEvent) {
-        navigateTo("/view/LoginLayout.fxml");
+        navigateTo("/");
     }
 }
