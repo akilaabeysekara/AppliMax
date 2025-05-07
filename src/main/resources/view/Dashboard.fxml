@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Dashboard"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="1100.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.DashboardController">
+   <children>
+      <VBox layoutX="262.0" layoutY="226.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #00003E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="20.0" />
+            <ImageView fitHeight="130.0" fitWidth="324.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@../images/AppliMaxLogo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="1199.0" prefWidth="1300.0" style="-fx-background-color: #dcdde1;" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
