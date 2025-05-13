@@ -19,7 +19,6 @@
 
                 <Label text="Register" textFill="#00003e">
                     <font>
-                        <Font size="36.0" />
                     </font>
                 </Label>
 
