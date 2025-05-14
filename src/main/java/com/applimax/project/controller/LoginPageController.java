@@ -38,15 +38,25 @@ public class LoginPageController {
 
         if (username.equals("admin") && password.equals("admin")) {
             new Alert(Alert.AlertType.INFORMATION, "Login Successful!", ButtonType.OK).show();
-           ancMainContainer.getChildren().clear();
-           AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
-           ancMainContainer.prefWidthProperty().bind(pane.widthProperty());
-           ancMainContainer.prefHeightProperty().bind(pane.heightProperty());
-           ancMainContainer.getChildren().add(pane);
+          navigateTo("/view/Dashboard.fxml");
         } else {
             new Alert(Alert.AlertType.ERROR, "Invalid credentials!", ButtonType.OK).show();
         }
     }
+    private void navigateTo(String path) {
+        try {
+            ancMainContainer.getChildren().clear();
 
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancMainContainer.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancMainContainer.heightProperty());
+
+            ancMainContainer.getChildren().add(anchorPane);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Page not found..!").show();
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancRegister" prefHeight="848.0" prefWidth="754.0" style="-fx-background-color: #dcdde1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.RegisterLayoutController">
+<AnchorPane fx:id="ancRegister" prefHeight="848.0" prefWidth="754.0" style="-fx-background-color: rgba(216,216,255,0.88);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.RegisterLayoutController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="567.0" prefWidth="378.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <children>

@@ -78,6 +78,8 @@ CREATE TABLE order_table (
                              order_id VARCHAR(10) PRIMARY KEY,
                              customer_id VARCHAR(10) NOT NULL,
                              order_date DATE NOT NULL,
+                             qty INT NOT NULL CHECK (qty >= 1),
+                             unit_price DECIMAL(10, 2) NOT NULL,
                              total_amount DECIMAL(10, 2),
                              FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
 );
