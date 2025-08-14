@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #d2dae2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.EmployeePageController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #d2dae2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.EmployeeRegistrationController">
     <children>
         <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <!-- Header Section -->
             <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #00003EFF; -fx-background-radius: 5;">
-                <Label style="-fx-text-fill: white; -fx-padding: 15;" text="Employee Management">
+                <Label style="-fx-text-fill: white; -fx-padding: 15;" text="Employee Registration">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

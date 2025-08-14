@@ -71,6 +71,7 @@ public class EmployeeRegistrationController implements Initializable {
         }
     }
 
+
     private void resetPage() throws SQLException, ClassNotFoundException {
         loadNextId();
         loadTableData();

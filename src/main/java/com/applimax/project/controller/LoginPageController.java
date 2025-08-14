@@ -1,13 +1,17 @@
 package com.applimax.project.controller;
 
+import com.applimax.project.model.AppUserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class LoginPageController {
@@ -29,19 +33,54 @@ public class LoginPageController {
 
     @FXML
     void forgotPasswordOnAction(MouseEvent event) {
+        navigateTo("/view/ForgotPassword.fxml");
 
     }
 
     public void onLogin(ActionEvent actionEvent) throws IOException {
+        singIn();
+    }
+
+    public void onNext(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            try {
+                passwordField.requestFocus();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void onLog(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            try {
+                singIn();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void singIn(){
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (username.equals("admin") && password.equals("admin")) {
-            new Alert(Alert.AlertType.INFORMATION, "Login Successful!", ButtonType.OK).show();
-          navigateTo("/view/Dashboard.fxml");
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid credentials!", ButtonType.OK).show();
+        if (username.isEmpty() || password.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Username and password are required", ButtonType.OK).show();
         }
+        try {
+            AppUserModel userModel = new AppUserModel();
+            boolean isValid = userModel.checkUser(username,password);
+            if (isValid) {
+                navigateTo("/view/Dashboard.fxml");
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Invalid credentials!", ButtonType.OK).show();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        }
+
+
     }
     private void navigateTo(String path) {
         try {
@@ -58,5 +97,4 @@ public class LoginPageController {
             e.printStackTrace();
         }
     }
-
 }

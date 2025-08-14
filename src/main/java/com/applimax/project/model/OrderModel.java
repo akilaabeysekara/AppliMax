@@ -1,6 +1,7 @@
 package com.applimax.project.model;
 
 import com.applimax.project.db.DBConnection;
+import com.applimax.project.dto.OrderDetailDTO;
 import com.applimax.project.dto.OrderTableDTO;
 import com.applimax.project.util.CrudUtil;
 
@@ -26,28 +27,57 @@ public class OrderModel {
         }
         return tableChar + "001";
     }
+
     public boolean placeOrder(OrderTableDTO orderTableDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);
-            boolean isSaved = CrudUtil.execute("INSERT INTO order_table VALUES (?,?,?,?,?,?)",orderTableDTO.getOrderId(),orderTableDTO.getCustomerId(),
-                    orderTableDTO.getOrderDate(),orderTableDTO.getQuantity(),orderTableDTO.getUnitPrice(),orderTableDTO.getUnitPrice());
-            if(isSaved){
-                boolean isOderSaved =  orderDetailModel.saveOrderDetailList(orderTableDTO.getCartList());
-                if(isOderSaved){
+
+            double totalAmount = 0.0;
+            int totalQuantity = 0;
+            double unitPrice = 0.0;
+
+            for (OrderDetailDTO detail : orderTableDTO.getCartList()) {
+                totalQuantity += detail.getQuantity();
+                totalAmount += detail.getQuantity() * detail.getUnitPrice();
+                if (unitPrice == 0.0) {
+                    unitPrice = detail.getUnitPrice();
+                }
+            }
+
+            boolean isSaved = CrudUtil.execute(
+                    "INSERT INTO order_table VALUES (?,?,?,?,?,?)",
+                    orderTableDTO.getOrderId(),
+                    orderTableDTO.getCustomerId(),
+                    orderTableDTO.getOrderDate(),
+                    totalQuantity,
+                    unitPrice,
+                    totalAmount
+            );
+
+            if (isSaved) {
+                boolean isOrderSaved = orderDetailModel.saveOrderDetailList(orderTableDTO.getCartList());
+                if (isOrderSaved) {
                     connection.commit();
                     return true;
                 }
             }
             connection.rollback();
             return false;
-        }catch (Exception e){
+        } catch (Exception e) {
             connection.rollback();
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             connection.setAutoCommit(true);
         }
     }
 
+    public String getOrderCount() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT COUNT(*) FROM order_table");
+        if (resultSet.next()) {
+            return String.valueOf(resultSet.getInt(1));
+        }
+        return "0";
+    }
 }

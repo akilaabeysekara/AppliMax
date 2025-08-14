@@ -5,20 +5,26 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static DBConnection dbConnection;
+
+    private static DBConnection dBConnection;
+
     private Connection connection;
-    private DBConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
+
+    private DBConnection() throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/AppliMax", "akila", "akila@T1955");
-    }
-    public static DBConnection getInstance()throws ClassNotFoundException, SQLException {
-        if (dbConnection == null) {
-            dbConnection = new DBConnection();
-        }
-        return dbConnection;
-    }
-    public Connection getConnection() {
-        return connection;
+
     }
 
+    public static DBConnection getInstance() throws ClassNotFoundException, SQLException{
+        if(dBConnection == null){
+            dBConnection = new DBConnection();
+        }
+        return dBConnection;
+    }
+
+    public Connection getConnection(){
+        return this.connection;
+    }
 }
+

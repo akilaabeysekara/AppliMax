@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #d2dae2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.EmployeeAttendanceController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(216,216,255,0.88);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.EmployeeAttendancePageController">
     <children>
         <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <!-- Header Section -->
@@ -39,7 +39,6 @@
                 <rowConstraints>
                     <RowConstraints minHeight="35.0" />
                     <RowConstraints minHeight="35.0" />
-               <RowConstraints minHeight="35.0" prefHeight="30.0" />
                <RowConstraints minHeight="35.0" prefHeight="30.0" />
                <RowConstraints minHeight="35.0" prefHeight="30.0" />
                 </rowConstraints>
@@ -73,37 +72,63 @@
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Label>
-            <Label text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Label>
-            <Label text="In Time" GridPane.rowIndex="3">
+            <Label text="Work Hours:" GridPane.rowIndex="3">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Label>
-            <Label text="Out Time:" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtInTime" onKeyReleased="#setTotal" prefHeight="30.0" prefWidth="655.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtOutTime" onKeyReleased="#setTotal" prefHeight="30.0" prefWidth="655.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Work Hours:" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtWorkHours" onKeyReleased="#setTotal" prefHeight="30.0" prefWidth="655.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtWorkHours" onKeyReleased="#setTotal" prefHeight="30.0" prefWidth="655.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="lblEmployeeName" prefHeight="32.0" prefWidth="356.0" style="-fx-border-color: black; -fx-border-radius: 3; -fx-padding: 5; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
             </Label>
             <DatePicker fx:id="dpDate" prefHeight="28.0" prefWidth="264.0" style="-fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cmbStatus" onAction="#cmbStatusOnAction" prefHeight="32.0" prefWidth="290.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cmbStatus" prefHeight="32.0" prefWidth="290.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cmbSelectMonth" onAction="#cmbSelectMonthOnAction" prefHeight="35.0" prefWidth="290.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" GridPane.columnIndex="3" />
+            <Label text="Month:" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+            </Label>
             </GridPane>
+         <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <children>
+               <Label prefHeight="18.0" prefWidth="12.0" />
+               <Label text="In Time">
+                  <font>
+                     <Font name="Segoe UI Semibold" size="14.0" />
+                  </font>
+               </Label>
+               <Label prefHeight="18.0" prefWidth="88.0" />
+               <ComboBox fx:id="cmbInHours" onAction="#cmbInHoursOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" />
+               <ComboBox fx:id="cmbInMinutes" onAction="#cmbInMinutesOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" />
+               <Label fx:id="lblInTime" prefHeight="32.0" prefWidth="100.0" style="-fx-border-color: black; -fx-border-radius: 3; -fx-padding: 5; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0;">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Label>
+               <Label prefHeight="18.0" prefWidth="29.0" />
+               <Label prefHeight="20.0" prefWidth="80.0" text="Out Time:">
+                  <font>
+                     <Font name="Segoe UI Semibold" size="14.0" />
+                  </font>
+               </Label>
+               <ComboBox fx:id="cmbOutHours" onAction="#cmbOutHoursOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" />
+               <ComboBox fx:id="cmbOutMinutes" onAction="#cmbOutMinutesOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-radius: 3; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0; -fx-border-color: black;" />
+               <Label fx:id="lblOutTime" prefHeight="32.0" prefWidth="100.0" style="-fx-border-color: black; -fx-border-radius: 3; -fx-padding: 5; -fx-background-color: rgba(216,216,255,0.88); -fx-border-width: 0 0 2 0;">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
+               </Label>
+               <Label prefHeight="18.0" prefWidth="46.0" />
+            </children>
+         </HBox>
 
             <!-- Button Panel -->
             <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 0 0 10 0;">
