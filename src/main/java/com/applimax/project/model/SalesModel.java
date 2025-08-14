@@ -1,4 +1,4 @@
 package com.applimax.project.model;
 
-public class OrderTableModel {
+public class SalesModel {
 }
