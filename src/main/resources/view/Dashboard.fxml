@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancMainContainerPlus" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.DashboardController">
+<AnchorPane fx:id="ancMainContainerPlus" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.DashboardController">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #00003E;" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="0.0">
          <children>
             <HBox alignment="CENTER_RIGHT" layoutX="-21.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label text="01/Aug/2025" textFill="WHITE">
+                  <Label fx:id="lblDate" text="17/Aug/2025" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>

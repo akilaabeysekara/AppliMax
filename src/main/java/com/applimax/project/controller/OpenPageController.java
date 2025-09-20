@@ -51,7 +51,7 @@ public class OpenPageController {
     private final SalesModel salesModel=new SalesModel();
 
     public void initialize() {
-        colName.setCellValueFactory(new PropertyValueFactory<>("item_name"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));

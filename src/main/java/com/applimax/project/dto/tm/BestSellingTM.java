@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 
 public class BestSellingTM {
-    private String item_name;
+    private String name;
     private String category;
     private String brand;
     private String price;
