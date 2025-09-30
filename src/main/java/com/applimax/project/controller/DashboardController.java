@@ -7,10 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -21,6 +24,7 @@ public class DashboardController implements Initializable {
 
     public AnchorPane ancMainContainerPlus;
     public Button btnLogout;
+    public Label lblDate;
 
     @FXML
     private AnchorPane ancMainContainer;
@@ -155,6 +159,8 @@ public class DashboardController implements Initializable {
         navigateTo("/view/OpenPage.fxml");
         resetButtons();
         btnDashboard.setStyle(ACTIVE_STYLE);
+        lblDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MMM/yyyy")));
+
     }
 
     public void resetButtons() {
