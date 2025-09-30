@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS AppliMax;
 CREATE DATABASE AppliMax;
 USE AppliMax;
 
--- APP_USER
+-- EMPLOYEE
 CREATE TABLE employee (
                           employee_id VARCHAR(10) PRIMARY KEY,
                           name        VARCHAR(50) NOT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE employee (
                           email       VARCHAR(50) UNIQUE,
                           phone_no    VARCHAR(10) UNIQUE,
                           address     VARCHAR(100),
-                          role      VARCHAR(20)
+                          role        VARCHAR(20)
 );
 
--- EMPLOYEE
+-- CUSTOMER
 CREATE TABLE customer (
                           customer_id VARCHAR(10) PRIMARY KEY,
                           name        VARCHAR(50) NOT NULL,
@@ -24,15 +24,22 @@ CREATE TABLE customer (
                           address     VARCHAR(100)
 );
 
--- CUSTOMER
 CREATE TABLE app_user (
-                          user_id   VARCHAR(10) PRIMARY KEY,
-                          employee_id VARCHAR(10)NOT NULL,
-                          username  VARCHAR(50) NOT NULL,
-                          password  VARCHAR(100) NOT NULL,
-                          email     VARCHAR(50) UNIQUE,
-                          FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
+                          user_id     VARCHAR(10) PRIMARY KEY,
+                          employee_id VARCHAR(10) NOT NULL,
+                          user_name   VARCHAR(50) NOT NULL,
+                          password    VARCHAR(100) NOT NULL,
+                          email       VARCHAR(50) UNIQUE,
+                          user_role   VARCHAR(20) NOT NULL DEFAULT 'STAFF',
+                          CONSTRAINT uq_app_user_user_name UNIQUE (user_name),
+                          CONSTRAINT uq_app_user_employee UNIQUE (employee_id),
+                          CONSTRAINT fk_app_user_employee
+                              FOREIGN KEY (employee_id)
+                                  REFERENCES employee(employee_id)
+                                  ON DELETE CASCADE
+                                  ON UPDATE CASCADE
 );
+
 
 -- CUSTOMER MANAGEMENT
 CREATE TABLE customer_management (
@@ -49,12 +56,12 @@ CREATE TABLE customer_management (
 
 -- ITEM
 CREATE TABLE item (
-                      item_id  VARCHAR(10) PRIMARY KEY,
-                      name     VARCHAR(50) NOT NULL,
-                      category VARCHAR(50),
-                      quantity     INT CHECK (quantity >= 1),
-                      brand    VARCHAR(50),
-                      price    DECIMAL(10,2) NOT NULL
+                      item_id   VARCHAR(10) PRIMARY KEY,
+                      name      VARCHAR(50) NOT NULL,
+                      category  VARCHAR(50),
+                      quantity  INT CHECK (quantity >= 1),
+                      brand     VARCHAR(50),
+                      price     DECIMAL(10,2) NOT NULL
 );
 
 -- ORDER
@@ -79,9 +86,7 @@ CREATE TABLE order_detail (
                               FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE
 );
 
-
 -- SUPPLIER
-
 CREATE TABLE supplier (
                           supplier_id VARCHAR(10) PRIMARY KEY,
                           name        VARCHAR(50) NOT NULL,
@@ -91,22 +96,21 @@ CREATE TABLE supplier (
                           address     VARCHAR(100)
 );
 
--- Supplier Expenses
+-- SUPPLIER EXPENSES
 CREATE TABLE supplier_expenses (
-    expenses_id VARCHAR(10) PRIMARY KEY,
-    supplier_id VARCHAR(10) NOT NULL,
-    pay_amount DECIMAL(10,2) NOT NULL,
-    payment_method VARCHAR(50),
-    payment_date DATE NOT NULL,
-    FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id) ON DELETE CASCADE
+                                   expenses_id    VARCHAR(10) PRIMARY KEY,
+                                   supplier_id    VARCHAR(10) NOT NULL,
+                                   pay_amount     DECIMAL(10,2) NOT NULL,
+                                   payment_method VARCHAR(50),
+                                   payment_date   DATE NOT NULL,
+                                   FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id) ON DELETE CASCADE
 );
-
 
 -- INVENTORY
 CREATE TABLE inventory (
-                           inventory_id   VARCHAR(10) PRIMARY KEY,
-                           item_id        VARCHAR(10) NOT NULL,
-                           supplier_id    VARCHAR(10) NOT NULL,
+                           inventory_id  VARCHAR(10) PRIMARY KEY,
+                           item_id       VARCHAR(10) NOT NULL,
+                           supplier_id   VARCHAR(10) NOT NULL,
                            received_date TIMESTAMP,
                            FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE,
                            FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id) ON DELETE CASCADE
@@ -139,23 +143,23 @@ CREATE TABLE attendance (
                             attendance_id   VARCHAR(10) PRIMARY KEY,
                             employee_id     VARCHAR(10) NOT NULL,
                             attendance_date DATE,
-                            in_time TIME,
-                            out_time TIME,
-                            status VARCHAR(20),
+                            in_time         TIME,
+                            out_time        TIME,
+                            status          VARCHAR(20),
                             wrk_hours       INT CHECK (wrk_hours >= 0),
                             FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
 );
 
 -- SALARY
 CREATE TABLE salary (
-                        salary_id   VARCHAR(10) PRIMARY KEY,
-                        employee_id VARCHAR(10) NOT NULL,
+                        salary_id     VARCHAR(10) PRIMARY KEY,
+                        employee_id   VARCHAR(10) NOT NULL,
                         attendance_id VARCHAR(10),
-                        salary_date VARCHAR(20) NOT NULL,
-                        basic_salary DECIMAL(10,2) NOT NULL,
-                        allowances DECIMAL(10,2),
-                        total_salary      DECIMAL(10,2) NOT NULL,
-                        Foreign Key (attendance_id) REFERENCES attendance(attendance_id) ON DELETE SET NULL,
+                        salary_date   VARCHAR(20) NOT NULL,
+                        basic_salary  DECIMAL(10,2) NOT NULL,
+                        allowances    DECIMAL(10,2),
+                        total_salary  DECIMAL(10,2) NOT NULL,
+                        FOREIGN KEY (attendance_id) REFERENCES attendance(attendance_id) ON DELETE SET NULL,
                         FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
 );
 
@@ -166,17 +170,21 @@ CREATE TABLE email (
                        email_time    TIME,
                        email_date    DATE
 );
--- INSERT INTO app_user
+
+
+
+-- EMPLOYEE
 INSERT INTO employee VALUES
                          ('E001', 'Akila Abeysekara', '199915400598', 'akila@gmail.com', '0775051485', 'Colombo', 'admin'),
                          ('E002', 'Kamal Silva', '983938099V', 'kamal@gmail.com', '0773938093', 'Colombo', 'admin'),
                          ('E003', 'Sunil Rathnayake', '198548730487', 'sunil@gmail.com', '0775745634', 'Kandy', 'supervisor'),
                          ('E004', 'Ravi Jayasuriya', '198885747897', 'ravi@gmail.com', '0774967485', 'Matara', 'supervisor');
 
--- EMPLOYEE
-INSERT INTO app_user VALUES
-                         ('U001', 'E001','1', '1', 'akila@gmail.com'),
-                         ('U002', 'E002','Kamal Silva', 'kamal7890',  'kamal@gmail.com');
+-- APP_USER
+INSERT INTO app_user (user_id, employee_id, user_name, password, email, user_role) VALUES
+                                                                                       ('U001','E001','1','1','akila@gmail.com','ADMIN'),
+                                                                                       ('U002','E002','Kamal Silva','kamal7890','kamal@gmail.com','SUPERVISOR');
+
 
 -- CUSTOMER
 INSERT INTO customer VALUES
@@ -213,7 +221,6 @@ INSERT INTO order_detail VALUES
                              ('O003', 'I003', 3, 45000.00),
                              ('O004', 'I004', 1, 18000.00);
 
-
 -- SUPPLIER
 INSERT INTO supplier VALUES
                          ('SU001', 'TechDistributors', '991234567V', '0714736548', 'techdis@gmail.com', 'Colombo7'),
@@ -222,21 +229,19 @@ INSERT INTO supplier VALUES
                          ('SU004', 'Treasure', '994234567V', '0713027348', 'treasure@gmail.com', 'Colombo8');
 
 -- SUPPLIER EXPENSES
-INSERT INTO supplier_expenses (
-    expenses_id, supplier_id, pay_amount, payment_method, payment_date
-) VALUES
-      ('SE001', 'SU001', 150000.00, 'Bank Transfer', '2025-05-05'),
-      ('SE002', 'SU002', 85000.00, 'Cash', '2025-05-06'),
-      ('SE003', 'SU003', 110000.00, 'Credit Card', '2025-05-07'),
-      ('SE004', 'SU004', 20000.00, 'Cheque', '2025-05-08'),
-      ('SE005', 'SU001', 120000.00, 'Bank Transfer', '2025-05-09');
+INSERT INTO supplier_expenses VALUES
+                                  ('SE001', 'SU001', 150000.00, 'Bank Transfer', '2025-05-05'),
+                                  ('SE002', 'SU002', 85000.00, 'Cash', '2025-05-06'),
+                                  ('SE003', 'SU003', 110000.00, 'Credit Card', '2025-05-07'),
+                                  ('SE004', 'SU004', 20000.00, 'Cheque', '2025-05-08'),
+                                  ('SE005', 'SU001', 120000.00, 'Bank Transfer', '2025-05-09');
 
 -- INVENTORY
-INSERT INTO inventory
-VALUES ('IN001', 'I001', 'SU001',  '2025-05-01'),
-       ('IN002', 'I002', 'SU002', '2025-05-02'),
-       ('IN003', 'I003', 'SU003',  '2025-05-03'),
-       ('IN004', 'I004', 'SU004', '2025-05-04');
+INSERT INTO inventory VALUES
+                          ('IN001', 'I001', 'SU001', '2025-05-01'),
+                          ('IN002', 'I002', 'SU002', '2025-05-02'),
+                          ('IN003', 'I003', 'SU003', '2025-05-03'),
+                          ('IN004', 'I004', 'SU004', '2025-05-04');
 
 -- SALE
 INSERT INTO sale VALUES
@@ -253,21 +258,18 @@ INSERT INTO sales_report VALUES
                              ('SR004', 'I004', '2025-05-13', 18000.00);
 
 -- ATTENDANCE
-INSERT INTO attendance (attendance_id, employee_id, attendance_date, in_time, out_time, status, wrk_hours) VALUES
-                                                                                                               ('A001', 'E001', '2025-06-01', '09:00:00', '17:00:00', 'Present', 8),
-                                                                                                               ('A002', 'E002', '2025-06-01', '09:15:00', '17:15:00', 'Present', 8),
-                                                                                                               ('A003', 'E003', '2025-06-01', NULL, NULL, 'Absent', 0),
-                                                                                                               ('A004', 'E001', '2025-06-02', '09:05:00', '17:00:00', 'Present', 8),
-                                                                                                               ('A005', 'E002', '2025-06-02', '09:00:00', '12:00:00', 'Half Day', 3);
+INSERT INTO attendance VALUES
+                           ('A001', 'E001', '2025-06-01', '09:00:00', '17:00:00', 'Present', 8),
+                           ('A002', 'E002', '2025-06-01', '09:15:00', '17:15:00', 'Present', 8),
+                           ('A003', 'E003', '2025-06-01', NULL, NULL, 'Absent', 0),
+                           ('A004', 'E001', '2025-06-02', '09:05:00', '17:00:00', 'Present', 8),
+                           ('A005', 'E002', '2025-06-02', '09:00:00', '12:00:00', 'Half Day', 3);
 
 -- SALARY
-INSERT INTO salary (
-    salary_id,  employee_id, attendance_id,  salary_date, basic_salary,  allowances,  total_salary
-) VALUES
-      ('SL001', 'E001', 'A001', '2025-06-01', 50000.00, 10000.00, 60000.00),
-      ('SL002', 'E002', 'A002', '2025-06-01', 45000.00,  8000.00, 53000.00),
-      ('SL003', 'E003', 'A003', '2025-06-01', 55000.00, 12000.00, 67000.00);
-
+INSERT INTO salary VALUES
+                       ('SL001', 'E001', 'A001', '2025-06-01', 50000.00, 10000.00, 60000.00),
+                       ('SL002', 'E002', 'A002', '2025-06-01', 45000.00, 8000.00, 53000.00),
+                       ('SL003', 'E003', 'A003', '2025-06-01', 55000.00, 12000.00, 67000.00);
 
 -- EMAIL
 INSERT INTO email VALUES

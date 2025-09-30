@@ -7,11 +7,11 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AppUserDTO {
     private String userId;
     private String employeeId;
     private String userName;
     private String password;
     private String email;
+    private String role;
 }
