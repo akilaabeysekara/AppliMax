@@ -20,7 +20,7 @@ public class VerifyAdminLayoutController {
     @FXML
     private PasswordField passwordField;
 
-    private static final String ADMIN_PASSWORD = "akila1234";
+    private static final String ADMIN_PASSWORD = "akila123";
 
     @FXML
     void onLog(KeyEvent event) {

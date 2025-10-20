@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #d2dae2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.SalesPageController">
+<AnchorPane prefHeight="850.0" prefWidth="1280.0" style="-fx-background-color: #d2dae2;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.applimax.project.controller.SalesPageController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="671.0" prefWidth="974.0" spacing="20.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <!-- Header Section -->
@@ -70,8 +70,8 @@
             </HBox>
 
             <!-- Table Section -->
-            <VBox spacing="5" style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
-                <TableView fx:id="tblsales" onMouseClicked="#onClickTable" prefHeight="564.0" prefWidth="960.0" VBox.vgrow="ALWAYS">
+            <VBox prefHeight="600.0" prefWidth="1240.0" spacing="5" style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                <TableView fx:id="tblsales" onMouseClicked="#onClickTable" prefHeight="600.0" prefWidth="1240.0" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="colId" style="-fx-alignment: CENTER;" text="Sales ID" />
                         <TableColumn fx:id="colItemName" style="-fx-alignment: CENTER;" text="Item Name" />
